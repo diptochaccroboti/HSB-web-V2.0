@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HSB - Our Mission</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
+    /* Fade-in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    /* Hero image */
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    /* Glassmorphism */
+    .glass {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    /* Slideshow */
+    .mission-slideshow-image {
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 1rem;
+    }
+    .mission-slideshow-image.active { opacity: 1; }
+    /* Navigation dots */
+    .dot {
+      height: 8px;
+      width: 8px;
+      background-color: #bbb;
+      border-radius: 50%;
+      display: inline-block;
+      margin: 0 3px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .dot.active { background-color: #ef4444; }
+    /* Card hover effects */
+    .card-hover {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    }
+    /* Dropdown menu */
+    .dropdown-menu {
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
+    }
+    .dropdown-menu.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    /* Hero font */
+    .hero-text {
+      font-family: 'Roboto', sans-serif; /* Fallback; replace with 'Fous' if available */
+      font-weight: 700;
+      color: #ffffff; /* Explicit white color */
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-roboto antialiased">
+  <!-- Header -->
+  <header class="bg-white text-gray-800 shadow-xl sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <img src="OIP (1).png" alt="HSB Logo" class="h-12" />
+        <h1 class="text-xl md:text-2xl font-semibold">Hemophilia Society of Bangladesh</h1>
+      </div>
+      <nav class="hidden md:flex items-center space-x-8">
+        <a href="index.html#home" class="hover:text-red-600 transition font-medium">Home</a>
+        <div class="dropdown relative">
+          <button class="hover:text-red-600 transition font-medium flex items-center" onclick="toggleDropdown('about-menu')">About Us<svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+          <div id="about-menu" class="dropdown-menu absolute bg-white text-gray-800 rounded-lg shadow-lg mt-2 w-48 border border-gray-100">
+            <a href="#mission" class="block px-4 py-2 hover:bg-red-50 hover:text-red-600 transition">Our Mission</a>
+            <a href="D:\CSE\Bintys defANCW\Main project file\main orijet\Web pages\history.html" class="block px-4 py-2 hover:bg-red-50 hover:text-red-600 transition">History</a>
+            <a href="index.html#team" class="block px-4 py-2 hover:bg-red-50 hover:text-red-600 transition">Our Team</a>
+            <a href="index.html#team" class="block px-4 py-2 hover:bg-red-50 hover:text-red-600 transition">Our Story</a>
+          </div>
+        </div>
+        <div class="dropdown relative">
+          <button class="hover:text-red-600 transition font-medium flex items-center" onclick="toggleDropdown('programs-menu')">Programs <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+          <div id="programs-menu" class="dropdown-menu absolute bg-white text-gray-800 rounded-lg shadow-lg mt-2 w-48 border border-gray-100">
+            <a href="index.html#medical" class="block px-4 py-2 hover:bg-red-50 hover:text-red-600 transition">Medical Care</a>
+            <a href="index.html#education" class="block px-4 py-2 hover:bg-red-50 hover:text-red-600 transition">Education</a>
+            <a href="index.html#community" class="block px-4 py-2 hover:bg-red-50 hover:text-red-600 transition">Community Support</a>
+          </div>
+        </div>
+        <a href="index.html#contact" class="hover:text-red-600 transition font-medium">Contact</a>
+        <a href="/patient-portal.html" class="bg-red-600 text-white px-6 py-2 rounded-full hover:bg-red-700 transition font-medium">Patient Login</a>
+      </nav>
+      <button class="md:hidden focus:outline-none" id="menuToggle">
+        <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden bg-white text-gray-800 border-t border-gray-200">
+      <div class="container mx-auto px-4 py-4 flex flex-col space-y-4">
+        <a href="index.html#home" class="hover:text-red-600 transition">Home</a>
+        <div>
+          <button class="hover:text-red-600 transition font-medium flex items-center" onclick="toggleMobileDropdown('mobile-about')">About <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+          <div id="mobile-about" class="hidden mt-2 flex flex-col space-y-2 ml-4">
+            <a href="#mission" class="hover:text-red-600 transition text-sm">Our Mission</a>
+            <a href="D:\CSE\Bintys defANCW\Main project file\main orijet\Web pages\history.html" class="hover:text-red-600 transition text-sm">History</a>
+            <a href="index.html#team" class="hover:text-red-600 transition text-sm">Our Team</a>
+          </div>
+        </div>
+        <div>
+          <button class="hover:text-red-600 transition font-medium flex items-center" onclick="toggleMobileDropdown('mobile-programs')">Programs <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg></button>
+          <div id="mobile-programs" class="hidden mt-2 flex flex-col space-y-2 ml-4">
+            <a href="index.html#medical" class="hover:text-red-600 transition text-sm">Medical Care</a>
+            <a href="index.html#education" class="hover:text-red-600 transition text-sm">Education</a>
+            <a href="index.html#community" class="hover:text-red-600 transition text-sm">Community Support</a>
+          </div>
+        </div>
+        <a href="index.html#contact" class="hover:text-red-600 transition">Contact</a>
+        <a href="/patient-portal.html" class="bg-red-600 text-white px-6 py-2 rounded-full hover:bg-red-700 transition font-medium text-center">Patient Login</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section id="hero" class="relative h-[500px] text-white overflow-hidden">
+    <img class="hero-image" src="w.jpg" alt="Mission Hero" />
+    <div class="absolute inset-0 bg-gradient-to-r from-red-900/50 to-red-600/50 z-10"></div>
+    <div class="absolute inset-0 flex items-center justify-center z-20">
+      <div class="container mx-auto px-4 text-center">
+        <h2 class="text-4xl md:text-6xl font-bold mb-6 fade-in hero-text">Our Mission</h2>
+        <p class="text-lg md:text-2xl max-w-3xl mx-auto fade-in hero-text">Empowering patients with bleeding disorders through awareness, collaboration, and comprehensive care.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mission Content Section -->
+  <section id="mission" class="bg-gray-50 py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-4xl md:text-5xl font-bold text-red-600 text-center mb-12 fade-in">Our Commitment to Change</h2>
+      <div class="glass bg-white/80 p-8 rounded-2xl shadow-2xl max-w-6xl mx-auto grid md:grid-cols-2 gap-12 card-hover">
+        <div class="fade-in space-y-6">
+          <p class="text-gray-700 leading-relaxed">The mission of the Hemophilia Society of Bangladesh is to significantly improve the quality of treatment for patients with hemophilia and other bleeding disorders in Bangladesh. By raising awareness about hemophilia, von Willebrand disease, and other bleeding conditions, we aim to educate the public and medical community. Our efforts include fostering strong collaborations with hemophilia treatment centers across Bangladesh, engaging actively with the government to advocate for better healthcare policies, and partnering with key stakeholders such as healthcare providers, pharmaceutical companies, and patient advocacy groups.</p>
+          <p class="text-gray-700 leading-relaxed">We strive to ensure that every patient with a bleeding disorder in Bangladesh receives timely and effective care. Through our initiatives, we work towards enhancing access to advanced treatment options, promoting early diagnosis, and providing comprehensive support to patients and their families. Our ultimate goal is to improve health outcomes and the overall quality of life for individuals living with hemophilia and other bleeding disorders in Bangladesh.</p>
+        </div>
+        <div class="relative h-[500px] rounded-xl overflow-hidden fade-in">
+          <div class="relative w-full h-full">
+            <img class="mission-slideshow-image active" src="7.jpeg" alt="Awareness Campaign 1" />
+            <img class="mission-slideshow-image" src="w.jpg" alt="Patient Support 6" />
+            <img class="mission-slideshow-image" src="4.jpeg" alt="Medical Support 2" />
+            <img class="mission-slideshow-image" src="6.jpeg" alt="Patient Care 3" />
+            <img class="mission-slideshow-image" src="5.jpeg" alt="Community Event 4" />
+            <img class="mission-slideshow-image" src="3.jpeg" alt="Medical Team 5" />
+            <img class="mission-slideshow-image" src="w.jpg" alt="Patient Support 6" />
+            <img class="mission-slideshow-image" src="https://images.unsplash.com/photo-1593113598332-cd483d8d1123?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Advocacy 7" />
+            <img class="mission-slideshow-image" src="https://images.unsplash.com/photo-1618498082410-b4aa09486553?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Education Program 8" />
+            <img class="mission-slideshow-image" src="https://images.unsplash.com/photo-1576091160550-2e4c7a8471b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Healthcare Access 9" />
+            <img class="mission-slideshow-image" src="https://images.unsplash.com/photo-1585435557343-7a31e7d1753f?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Collaboration 10" />
+          </div>
+          <!-- Slideshow Controls -->
+          <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex items-center space-x-2">
+            <button id="missionPausePlay" class="text-white bg-black/50 p-2 rounded-full hover:bg-black/70 transition">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+            </button>
+            <span class="dot active" onclick="setMissionSlide(0)"></span>
+            <span class="dot" onclick="setMissionSlide(1)"></span>
+            <span class="dot" onclick="setMissionSlide(2)"></span>
+            <span class="dot" onclick="setMissionSlide(3)"></span>
+            <span class="dot" onclick="setMissionSlide(4)"></span>
+            <span class="dot" onclick="setMissionSlide(5)"></span>
+            <span class="dot" onclick="setMissionSlide(6)"></span>
+            <span class="dot" onclick="setMissionSlide(7)"></span>
+            <span class="dot" onclick="setMissionSlide(8)"></span>
+            <span class="dot" onclick="setMissionSlide(9)"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Focus Areas Section -->
+  <section id="focus-areas" class="bg-white py-16">
+    <div class="container mx-auto px-4">
+      <h2 class="text-4xl md:text-5xl font-bold text-red-600 text-center mb-12 fade-in">Key Focus Areas</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="glass p-6 rounded-2xl shadow-xl text-center card-hover fade-in">
+          <svg class="w-12 h-12 mx-auto mb-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+          </svg>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">Awareness & Education</h3>
+          <p class="text-gray-600">Increasing public and medical awareness through campaigns, workshops, and educational programs.</p>
+        </div>
+        <div class="glass p-6 rounded-2xl shadow-xl text-center card-hover fade-in">
+          <svg class="w-12 h-12 mx-auto mb-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+          </svg>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">Collaboration with Centers</h3>
+          <p class="text-gray-600">Building partnerships with hemophilia treatment centers to ensure high standards of care.</p>
+        </div>
+        <div class="glass p-6 rounded-2xl shadow-xl text-center card-hover fade-in">
+          <svg class="w-12 h-12 mx-auto mb-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+          </svg>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">Government Engagement</h3>
+          <p class="text-gray-600">Advocating for policy changes to enhance treatment accessibility and affordability.</p>
+        </div>
+        <div class="glass p-6 rounded-2xl shadow-xl text-center card-hover fade-in">
+          <svg class="w-12 h-12 mx-auto mb-4 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+          </svg>
+          <h3 class="text-xl font-semibold text-gray-800 mb-2">Stakeholder Partnerships</h3>
+          <p class="text-gray-600">Working with healthcare providers and advocacy groups to improve treatment options.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Hemophilia Society of Bangladesh</h3>
+          <p class="text-gray-400">Empowering lives through care and community for Hemophilia since 1994.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+          <ul class="space-y-2">
+            <li><a href="index.html#home" class="text-gray-400 hover:text-red-400 transition">Home</a></li>
+            <li><a href="#mission" class="text-gray-400 hover:text-red-400 transition">About</a></li>
+            <li><a href="index.html#programs" class="text-gray-400 hover:text-red-400 transition">Programs</a></li>
+            <li><a href="index.html#contact" class="text-gray-400 hover:text-red-400 transition">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold mb-4">Stay Connected</h3>
+          <div class="flex space-x-4 mb-4">
+            <a href="#" class="text-gray-400 hover:text-red-400 transition"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22 12c0-5.5-4.5-10-10-10S2 6.5 2 12c0 5 3.7 9.1 8.4 9.9v-7H7.9V12h2.5V9.7c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7C18.3 21.1 22 17 22 12z"/></svg></a>
+            <a href="#" class="text-gray-400 hover:text-red-400 transition"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 01-3.1 1.5A4.5 4.5 0 0016.4 2c-2.5 0-4.5 2 4.5 4.5 0 .4 0 .7.1 1A12.9 12.9 0 013 4.7a4.5 4.5 0 001.4 6 4.3 4.3 0 01-2-.6v.1c0 2.2 1.6 4 3.7 4.4a4.5 4.5 0 01-2 .1c.6 1.8 2.3 3.1 4.3 3.1A9 9 0 012 19.5 12.8 12.8 0 008.7 21c8.3 0 12.8-6.9 12.8-12.8v-.6A9.1 9.1 0 0023 3z"/></svg></a>
+            <a href="mailto:info@hemophiliabd.org" class="text-gray-400 hover:text-red-400 transition"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm-1.7 4.3l-6.3 5.3-6.3-5.3c-.2-.2-.5-.2-.7 0s-.2.5 0 .7l6.7 5.7c.2.2.5.2.7 0l6.7-5.7c.2-.2.2-.5 0-.7s-.5-.2-.7 0z"/></svg></a>
+          </div>
+          <div class="flex">
+            <input type="email" placeholder="Enter your email" class="w-full px-4 py-2 rounded-l-full bg-gray-800 text-gray-300 border-none focus:outline-none">
+            <button class="bg-red-500 text-white px-4 rounded-r-full hover:bg-red-600 transition">Subscribe</button>
+          </div>
+        </div>
+      </div>
+      <p class="text-center text-gray-400 mt-8">© 2025 Hemophilia Society of Bangladesh. All rights reserved.</p>
+      <p class="text-center text-gray-400 mt-4">Developed By Binty</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuToggle = document.getElementById("menuToggle");
+    const mobileMenu = document.getElementById("mobileMenu");
+    menuToggle.addEventListener("click", () => {
+      mobileMenu.classList.toggle("hidden");
+    });
+
+    // Dropdown toggle for desktop
+    function toggleDropdown(menuId) {
+      const menu = document.getElementById(menuId);
+      const isActive = menu.classList.contains("active");
+      document.querySelectorAll(".dropdown-menu").forEach(m => m.classList.remove("active"));
+      if (!isActive) menu.classList.add("active");
+    }
+
+    // Dropdown toggle for mobile
+    function toggleMobileDropdown(menuId) {
+      const menu = document.getElementById(menuId);
+      menu.classList.toggle("hidden");
+    }
+
+    // Close dropdowns when clicking outside
+    document.addEventListener("click", (e) => {
+      if (!e.target.closest(".dropdown")) {
+        document.querySelectorAll(".dropdown-menu").forEach(menu => menu.classList.remove("active"));
+      }
+    });
+
+    // Mission slideshow
+    const missionImages = document.querySelectorAll(".mission-slideshow-image");
+    const dots = document.querySelectorAll(".dot");
+    let currentMissionImageIndex = 0;
+    let missionSlideshowInterval = setInterval(showNextMissionImage, 4000);
+    let isPlaying = true;
+
+    function showNextMissionImage() {
+      missionImages[currentMissionImageIndex].classList.remove("active");
+      dots[currentMissionImageIndex].classList.remove("active");
+      currentMissionImageIndex = (currentMissionImageIndex + 1) % missionImages.length;
+      missionImages[currentMissionImageIndex].classList.add("active");
+      dots[currentMissionImageIndex].classList.add("active");
+    }
+
+    function setMissionSlide(index) {
+      missionImages[currentMissionImageIndex].classList.remove("active");
+      dots[currentMissionImageIndex].classList.remove("active");
+      currentMissionImageIndex = index;
+      missionImages[currentMissionImageIndex].classList.add("active");
+      dots[currentMissionImageIndex].classList.add("active");
+    }
+
+    const pausePlayButton = document.getElementById("missionPausePlay");
+    pausePlayButton.addEventListener("click", () => {
+      isPlaying = !isPlaying;
+      if (isPlaying) {
+        missionSlideshowInterval = setInterval(showNextMissionImage, 4000);
+        pausePlayButton.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+      } else {
+        clearInterval(missionSlideshowInterval);
+        pausePlayButton.innerHTML = '<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>';
+      }
+    });
+
+    // Fade-in animations on scroll
+    const fadeElements = document.querySelectorAll(".fade-in");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    fadeElements.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
